@@ -14,7 +14,7 @@ carpentry: 'dc'
 title: 'DTRA WORKSHOP: Ecological Niche Modeling in R'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: '2024-01-06'
+created: '2024-01-13'
 
 # Comma-separated list of keywords for the lesson
 keywords: 'software, data, raster, GIS'
