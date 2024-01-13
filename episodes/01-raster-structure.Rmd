@@ -30,6 +30,8 @@ knitr::opts_chunk$set(fig.height = 6)
 library(terra)
 library(ggplot2)
 library(dplyr)
+library(hypervolume)
+library(rnaturalearth)
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
@@ -58,6 +60,8 @@ loaded.
 library(terra)
 library(ggplot2)
 library(dplyr)
+library(hypervolume)
+library(rnaturalearth)
 ```
 
 :::::::::::::::::::::::::::::::::::::::::  callout
