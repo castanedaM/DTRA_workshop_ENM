@@ -59,7 +59,7 @@ contact: 'marianacg@vt.edu'
 
 # Order of episodes in your lesson
 episodes: 
-- 01-raster-structure.Rmd
+- 01-ENM_lab_1.Rmd
 
 # Information for Learners
 learners: 
