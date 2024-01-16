@@ -1,0 +1,72 @@
+---
+title: ENM Lab 1
+source: Rmd
+---
+
+```{r setup, echo=FALSE}
+source("setup.R")
+knitr::opts_chunk$set(fig.height = 6)
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Load Occurrence data
+- Load Environmental data
+- get data into E-space
+- calibrate a hypervolume model
+- run projection in M and other M's
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- What is a hypervolume?
+- How can we get the data into E-space and back into G-space?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+## Packages
+
+```{r load-libraries, message=FALSE, warning=FALSE}
+library(sf) # for csv and spatial objects. Necessary to use shape files (.shp) and raster files (e.g., .tif, .asc)
+library(maps) # for simple maps. Used to display pretty maps, not used here for analysis.
+library(ggplot2) # for plotting. Advanced package to change colors, symbols, etc. for publishable figures.
+library(RColorBrewer) # for editing plots. Used with ggplot2 to have more colors in the figures.
+library(tidyverse) # for data handling. Useful for handling, sorting, and structuring datasets before analyses.
+library(raster) # Used to work with shapfiles and raster files. Some functions will be outdated in 2024. 
+library(hypervolume) # The main package we will use to build ecological niche models, focusing on realized niches.
+```
+
+
+## Occurrence Data
+
+### Download data
+
+```{r eval=TRUEmessages = FALSE, warning = FALSE}
+
+tree_species <- "Quercus alba" # This is a common tree species in the region. We will use it for our excercie. 
+
+# load in lat/lon data
+data('quercus') 
+tree_data <- subset(quercus, Species == "Quercus alba")[,c("Longitude","Latitude")]
+
+write.csv(tree_data, "Data/DTRA_tree_data.csv", row.names = FALSE)
+  
+```
+
+### .cvs to sf object
+
+```{r messages = FALSE, warning = FALSE}
+tree_species <- "Quercus alba" # This is the scientific name of the species of interst, can change.
+
+tree_data <- read.csv("Data/DTRA_tree_data.csv") # This is the name of the file we want to import, it will be provided in the course.
+
+head(tree_data) # Read the first six rows for inspection.
+
+tree_data_sf <- st_as_sf(tree_data, # Name the dataset to be used.
+                        coords = c("Longitude", # function to identify the columns that have the x and y coordinates.
+                                   "Latitude"), 
+                        crs = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") # "crs" refers to the coordinate reference system to be used, including the projection, EPSG, datum, and coordinate format to use. 
+
+```
